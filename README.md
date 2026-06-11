@@ -42,4 +42,4 @@ Ga daarna naar http://localhost:8080
 
 ## Stijl
 
-Zelfde opzet als het [Josh V voorstel](https://cschoorl.github.io/Josh-V-Voorstel/), met Open Sans / Arial en rechtopstaande tekst.
+Zelfde opzet als het [Josh V voorstel](https://cschoorl.github.io/Josh-V-Voorstel/), met Arial en rechtopstaande titels.
