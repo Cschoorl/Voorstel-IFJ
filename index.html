@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IFJ — AI Onboardingsdag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf8f5;
+    --ink: #1a1a1a;
+    --muted: #8a8580;
+    --line: #e8e4dd;
+    --accent: #b8a98f;
+    --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+  }
+
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7vh 8vw;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .slide-inner {
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
+  }
+
+  .brand-mark {
+    position: fixed;
+    top: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    color: var(--ink);
+    font-weight: 400;
+    z-index: 10;
+  }
+
+  .eyebrow {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 56px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(40px, 5.6vw, 78px);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+
+  .subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(18px, 1.5vw, 21px);
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 0;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .body-text {
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 300;
+    font-size: clamp(14px, 1.05vw, 16px);
+    line-height: 1.7;
+    color: var(--ink);
+    max-width: 580px;
+    margin: 0 auto;
+    letter-spacing: 0.01em;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--ink);
+    margin: 36px auto;
+  }
+
+  .bullets {
+    list-style: none;
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .bullets li {
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 300;
+    font-size: clamp(15px, 1.15vw, 17px);
+    line-height: 1.6;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.01em;
+  }
+
+  .bullets li:last-child { border-bottom: none; }
+
+  .bullets-compact li {
+    padding: 14px 0;
+    font-size: clamp(14px, 1.05vw, 16px);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 60px;
+    margin-top: 48px;
+    text-align: left;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--line);
+    margin-top: 56px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .process-cell {
+    background: var(--bg);
+    padding: 32px 16px;
+    text-align: center;
+  }
+
+  .process-cell .step-num {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .process-cell .step-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(17px, 1.4vw, 22px);
+    margin-bottom: 12px;
+  }
+
+  .process-cell .step-desc {
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  .person-name {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(32px, 2.8vw, 42px);
+    letter-spacing: 0.01em;
+    margin-bottom: 14px;
+    line-height: 1.1;
+  }
+
+  .person-role {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  .slide-closing .closing-line {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--muted);
+    margin-top: 80px;
+    text-transform: uppercase;
+  }
+
+  .col-divider {
+    background: var(--line);
+    width: 1px;
+  }
+
+  .col ul {
+    list-style: none;
+  }
+
+  .col li {
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 300;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.7;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.01em;
+  }
+
+  .col li:last-child { border: none; }
+
+  .slide-title .ornament {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 36px;
+    letter-spacing: 0.3em;
+  }
+
+  .nav {
+    position: fixed;
+    bottom: 36px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 48px;
+    z-index: 20;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 12px 4px;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-btn:hover { opacity: 0.5; }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+  .nav-btn .arrow {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-style: normal;
+  }
+
+  .counter {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .counter .total { color: var(--muted); }
+
+  .progress {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--line);
+    transition: background 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+
+  .dot.active {
+    background: var(--ink);
+    transform: scale(1.4);
+  }
+
+  .slide-1 .slide-inner { text-align: center; }
+
+  .slide-1 .brand-line {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--muted);
+    margin-top: 80px;
+  }
+
+  @media (max-width: 880px) {
+    .slide { padding: 9vh 6vw; }
+    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    .process-grid,
+    .process-grid[style] { grid-template-columns: 1fr !important; }
+    .col-divider { display: none; }
+    .nav { padding: 0 24px; }
+    .brand-mark { top: 24px; font-size: 10px; }
+  }
+
+  @media (max-height: 700px) {
+    .eyebrow { margin-bottom: 32px; }
+    .process-grid { margin-top: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brand-mark">IFJ</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — TITEL -->
+  <section class="slide slide-1 slide-title active" data-slide="1">
+    <div class="slide-inner">
+      <div class="ornament">— I —</div>
+      <h1>AI Onboardingsdag</h1>
+      <div class="divider"></div>
+      <p class="subtitle">Commercie &amp; content. Op locatie.</p>
+      <div class="brand-line">VOORSTEL VOOR JORIS</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — AANLEIDING -->
+  <section class="slide" data-slide="2">
+    <div class="slide-inner">
+      <div class="eyebrow">De aanleiding</div>
+      <h2>Praktisch.<br/>Direct toepasbaar.</h2>
+      <div class="divider"></div>
+      <ul class="bullets">
+        <li>Gesprek met Joris over het onboarden van meerdere teams op AI</li>
+        <li>Het commerciële team en een deel van werving, content en marketing</li>
+        <li>Niet alleen uitleg over AI — vooral kijken hoe AI direct in hun werk past</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 — WAT ZIJ WILLEN -->
+  <section class="slide" data-slide="3">
+    <div class="slide-inner">
+      <div class="eyebrow">De wens</div>
+      <h2>Eén dag.<br/>Concrete tools.</h2>
+      <div class="divider"></div>
+      <ul class="bullets">
+        <li>Een dag op locatie waarin de teams leren werken met AI</li>
+        <li>Inzicht in welke dagelijkse taken slimmer of sneller kunnen</li>
+        <li>Concrete automatiseringen, prompts en workflows die direct bruikbaar zijn</li>
+        <li>Focus op tijd besparen, structuur aanbrengen en consistenter werken</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 — DE AANPAK -->
+  <section class="slide" data-slide="4">
+    <div class="slide-inner">
+      <div class="eyebrow">De aanpak</div>
+      <h2>Op locatie.<br/>Samen door het werk.</h2>
+      <div class="divider"></div>
+      <p class="body-text">We organiseren één praktische AI-onboardingsdag op locatie. Samen lopen we door de werkzaamheden van de teams heen, brengen terugkerende taken en knelpunten in kaart, en bouwen tijdens de sessie concrete voorbeelden, prompts en workflows.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 — WIE DOET WAT -->
+  <section class="slide" data-slide="5">
+    <div class="slide-inner">
+      <div class="eyebrow">Wie doet wat</div>
+      <h2>Twee specialisten.<br/>Eén dag.</h2>
+      <div class="two-col" style="margin-top: 48px;">
+        <div class="col">
+          <div class="person-name">Caesar</div>
+          <div class="person-role">Commercieel</div>
+          <ul>
+            <li>Salesmails schrijven en personaliseren</li>
+            <li>Opvolgmails automatiseren</li>
+            <li>Klantgesprekken voorbereiden</li>
+            <li>Gesprekken samenvatten</li>
+            <li>Leads structureren</li>
+            <li>Bel- en salescripts maken</li>
+          </ul>
+        </div>
+        <div class="col-divider"></div>
+        <div class="col">
+          <div class="person-name">Max</div>
+          <div class="person-role">Content &amp; marketing</div>
+          <ul>
+            <li>Contentideeën bedenken</li>
+            <li>Social posts maken</li>
+            <li>Campagnes uitwerken</li>
+            <li>Nieuwsbrieven opzetten</li>
+            <li>Vacaturecontent verbeteren</li>
+            <li>Marketingformats maken</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 — DE DAG -->
+  <section class="slide" data-slide="6">
+    <div class="slide-inner">
+      <div class="eyebrow">De dag</div>
+      <h2>Vijf momenten.<br/>Eén dag.</h2>
+      <div class="process-grid">
+        <div class="process-cell">
+          <div class="step-num">START</div>
+          <div class="step-title">Introductie</div>
+          <div class="step-desc">Wat kan AI praktisch betekenen voor de teams?</div>
+        </div>
+        <div class="process-cell">
+          <div class="step-num">STAP 1</div>
+          <div class="step-title">Inventarisatie</div>
+          <div class="step-desc">Welke taken komen vaak terug in het dagelijkse werk?</div>
+        </div>
+        <div class="process-cell">
+          <div class="step-num">STAP 2</div>
+          <div class="step-title">Prioritering</div>
+          <div class="step-desc">Welke taken kosten veel tijd en zijn geschikt voor AI?</div>
+        </div>
+        <div class="process-cell">
+          <div class="step-num">STAP 3</div>
+          <div class="step-title">Werksessie</div>
+          <div class="step-desc">Prompts, formats en workflows bouwen — commercieel met Caesar, content met Max.</div>
+        </div>
+        <div class="process-cell">
+          <div class="step-num">EINDE</div>
+          <div class="step-title">Afsluiting</div>
+          <div class="step-desc">Concrete vervolgstappen en implementatieadvies.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 — CONCRETE OUTPUT -->
+  <section class="slide" data-slide="7">
+    <div class="slide-inner">
+      <div class="eyebrow">De output</div>
+      <h2>Bruikbaar vanaf<br/>dag één.</h2>
+      <div class="divider"></div>
+      <ul class="bullets">
+        <li>Een overzicht van kansrijke AI-toepassingen per team</li>
+        <li>Herbruikbare prompttemplates</li>
+        <li>Voorbeelden van geautomatiseerde of versnelde workflows</li>
+        <li>Praktische formats voor sales, werving en content</li>
+        <li>Advies voor vervolgstappen en implementatie</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 — VERVOLGSTAPPEN -->
+  <section class="slide" data-slide="8">
+    <div class="slide-inner">
+      <div class="eyebrow">Vervolgstappen</div>
+      <h2>Nog te bespreken.</h2>
+      <div class="divider"></div>
+      <ul class="bullets bullets-compact">
+        <li>Max benaderen voor het content-/marketinggedeelte</li>
+        <li>Voorstel voor Joris afronden</li>
+        <li>Dagindeling concreet uitwerken</li>
+        <li>Mogelijke automatiseringen per team verzamelen</li>
+        <li>Prijs bepalen</li>
+        <li>Eventueel extra input ophalen bij Joris over pijnpunten en prioriteiten</li>
+        <li>Datum, locatie en deelnemers afstemmen</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 — TOT SLOT -->
+  <section class="slide slide-title slide-closing" data-slide="9">
+    <div class="slide-inner">
+      <div class="ornament">— TOT SLOT —</div>
+      <h1>Eén dag op locatie.<br/>Direct toepasbaar.</h1>
+      <div class="divider"></div>
+      <p class="subtitle">Klaar om de dag in te plannen?</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+
+<nav class="nav">
+  <button class="nav-btn" id="prev" aria-label="Vorige slide">
+    <span class="arrow">←</span><span>Vorige</span>
+  </button>
+  <div class="counter">
+    <span id="current">01</span><span class="total"> / 09</span>
+  </div>
+  <button class="nav-btn" id="next" aria-label="Volgende slide">
+    <span>Volgende</span><span class="arrow">→</span>
+  </button>
+</nav>
+
+<script>
+  (function () {
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const currentEl = document.getElementById('current');
+    const progress = document.getElementById('progress');
+    let index = 0;
+
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      progress.appendChild(dot);
+    }
+    const dots = progress.querySelectorAll('.dot');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function update() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      currentEl.textContent = pad(index + 1);
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === total - 1;
+    }
+
+    function goTo(i) {
+      if (i < 0 || i >= total) return;
+      index = i;
+      update();
+    }
+
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault(); next();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault(); prev();
+      } else if (e.key === 'Home') {
+        e.preventDefault(); goTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault(); goTo(total - 1);
+      }
+    });
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+    }, { passive: true });
+
+    update();
+  })();
+</script>
+
+</body>
+</html>
