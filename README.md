@@ -1,6 +1,6 @@
-# Voorstel IFJ — AI Onboardingsdag
+# Voorstel International Flex Jobs — AI Onboardingsdag
 
-HTML-slidedeck met een voorstel voor een praktische AI-onboardingsdag voor het commerciële team en content/marketing bij IFJ.
+HTML-slidedeck met een voorstel voor een praktische AI-onboardingsdag voor het commerciële team en content/marketing bij International Flex Jobs.
 
 ## Live bekijken
 
@@ -28,7 +28,7 @@ Ga daarna naar http://localhost:8080
 - Knoppen onderaan — vorige / volgende
 - Op mobiel — swipen
 
-## Inhoud (8 slides)
+## Inhoud (7 slides)
 
 1. Titel — AI Onboardingsdag
 2. De aanpak
@@ -36,8 +36,7 @@ Ga daarna naar http://localhost:8080
 4. Wie doet wat (Caesar + Max)
 5. De output
 6. Investering — €3.120 ex btw
-7. Vervolgstappen
-8. Tot slot
+7. Tot slot
 
 ## Stijl
 
