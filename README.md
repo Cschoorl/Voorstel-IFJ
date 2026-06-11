@@ -28,17 +28,16 @@ Ga daarna naar http://localhost:8080
 - Knoppen onderaan — vorige / volgende
 - Op mobiel — swipen
 
-## Inhoud (9 slides)
+## Inhoud (8 slides)
 
 1. Titel — AI Onboardingsdag
-2. Aanleiding
-3. De wens
-4. De aanpak
-5. Wie doet wat (Caesar + Max)
-6. De dag
-7. De output
-8. Vervolgstappen
-9. Tot slot
+2. De aanpak
+3. De dag — drie momenten
+4. Wie doet wat (Caesar + Max)
+5. De output
+6. Investering — €3.120 ex btw
+7. Vervolgstappen
+8. Tot slot
 
 ## Stijl
 

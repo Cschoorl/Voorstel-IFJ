@@ -165,12 +165,123 @@
 
   .process-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     background: var(--line);
     margin-top: 56px;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
+  }
+
+  .hours-block {
+    max-width: 520px;
+    margin: 48px auto 0;
+    text-align: left;
+  }
+
+  .hours-block .label {
+    font-family: var(--font);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+
+  .hours-row .item { color: var(--ink); }
+
+  .hours-row .value {
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    margin-left: 16px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hours-row.subtotal {
+    border-bottom: none;
+    padding-top: 18px;
+    margin-top: 4px;
+    border-top: 1px solid var(--ink);
+    font-weight: 600;
+    font-size: clamp(15px, 1.2vw, 17px);
+  }
+
+  .formula-block {
+    max-width: 520px;
+    margin: 32px auto 0;
+  }
+
+  .formula-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 12px 0;
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  .formula-line .calc { color: var(--muted); }
+
+  .formula-line .amount {
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    margin-left: 16px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .formula-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid var(--ink);
+    padding-top: 22px;
+    margin-top: 8px;
+  }
+
+  .formula-total .label-text {
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: clamp(18px, 1.5vw, 22px);
+    color: var(--ink);
+  }
+
+  .formula-total .amount {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(28px, 2.6vw, 38px);
+    color: var(--ink);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .formula-total .amount small {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 6px;
+    text-align: right;
+    letter-spacing: 0.04em;
   }
 
   .process-cell {
@@ -377,37 +488,8 @@
     </div>
   </section>
 
-  <!-- SLIDE 2 — AANLEIDING -->
+  <!-- SLIDE 2 — DE AANPAK -->
   <section class="slide" data-slide="2">
-    <div class="slide-inner">
-      <div class="eyebrow">De aanleiding</div>
-      <h2>Praktisch en direct toepasbaar</h2>
-      <div class="divider"></div>
-      <ul class="bullets">
-        <li>Gesprek met Joris over het onboarden van meerdere teams op AI</li>
-        <li>Het commerciële team en een deel van werving, content en marketing</li>
-        <li>Niet alleen uitleg over AI — vooral kijken hoe AI direct in hun werk past</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- SLIDE 3 — WAT ZIJ WILLEN -->
-  <section class="slide" data-slide="3">
-    <div class="slide-inner">
-      <div class="eyebrow">De wens</div>
-      <h2>Eén dag, concrete tools</h2>
-      <div class="divider"></div>
-      <ul class="bullets">
-        <li>Een dag op locatie waarin de teams leren werken met AI</li>
-        <li>Inzicht in welke dagelijkse taken slimmer of sneller kunnen</li>
-        <li>Concrete automatiseringen, prompts en workflows die direct bruikbaar zijn</li>
-        <li>Focus op tijd besparen, structuur aanbrengen en consistenter werken</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- SLIDE 4 — DE AANPAK -->
-  <section class="slide" data-slide="4">
     <div class="slide-inner">
       <div class="eyebrow">De aanpak</div>
       <h2>Op locatie, samen door het werk</h2>
@@ -416,8 +498,33 @@
     </div>
   </section>
 
-  <!-- SLIDE 5 — WIE DOET WAT -->
-  <section class="slide" data-slide="5">
+  <!-- SLIDE 3 — DE DAG -->
+  <section class="slide" data-slide="3">
+    <div class="slide-inner">
+      <div class="eyebrow">De dag</div>
+      <h2>Drie momenten, één dag</h2>
+      <div class="process-grid">
+        <div class="process-cell">
+          <div class="step-num">OCHTEND</div>
+          <div class="step-title">Kickoff</div>
+          <div class="step-desc">Verwachtingen, doelen en scope. We stemmen af waar we de dag op focussen.</div>
+        </div>
+        <div class="process-cell">
+          <div class="step-num">DAG</div>
+          <div class="step-title">Aan het werk</div>
+          <div class="step-desc">Meekijken met het echte werk. Kansen spotten, tools introduceren, direct toepassen.</div>
+        </div>
+        <div class="process-cell">
+          <div class="step-num">EINDE</div>
+          <div class="step-title">Recap</div>
+          <div class="step-desc">Wat hebben we gevonden, wat gaat het team morgen anders doen, en hoe borgen we het.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 — WIE DOET WAT -->
+  <section class="slide" data-slide="4">
     <div class="slide-inner">
       <div class="eyebrow">Wie doet wat</div>
       <h2>Twee specialisten, één dag</h2>
@@ -451,43 +558,8 @@
     </div>
   </section>
 
-  <!-- SLIDE 6 — DE DAG -->
-  <section class="slide" data-slide="6">
-    <div class="slide-inner">
-      <div class="eyebrow">De dag</div>
-      <h2>Vijf momenten, één dag</h2>
-      <div class="process-grid">
-        <div class="process-cell">
-          <div class="step-num">START</div>
-          <div class="step-title">Introductie</div>
-          <div class="step-desc">Wat kan AI praktisch betekenen voor de teams?</div>
-        </div>
-        <div class="process-cell">
-          <div class="step-num">STAP 1</div>
-          <div class="step-title">Inventarisatie</div>
-          <div class="step-desc">Welke taken komen vaak terug in het dagelijkse werk?</div>
-        </div>
-        <div class="process-cell">
-          <div class="step-num">STAP 2</div>
-          <div class="step-title">Prioritering</div>
-          <div class="step-desc">Welke taken kosten veel tijd en zijn geschikt voor AI?</div>
-        </div>
-        <div class="process-cell">
-          <div class="step-num">STAP 3</div>
-          <div class="step-title">Werksessie</div>
-          <div class="step-desc">Prompts, formats en workflows bouwen — commercieel met Caesar, content met Max.</div>
-        </div>
-        <div class="process-cell">
-          <div class="step-num">EINDE</div>
-          <div class="step-title">Afsluiting</div>
-          <div class="step-desc">Concrete vervolgstappen en implementatieadvies.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 7 — CONCRETE OUTPUT -->
-  <section class="slide" data-slide="7">
+  <!-- SLIDE 5 — CONCRETE OUTPUT -->
+  <section class="slide" data-slide="5">
     <div class="slide-inner">
       <div class="eyebrow">De output</div>
       <h2>Bruikbaar vanaf dag één</h2>
@@ -502,26 +574,65 @@
     </div>
   </section>
 
-  <!-- SLIDE 8 — VERVOLGSTAPPEN -->
-  <section class="slide" data-slide="8">
+  <!-- SLIDE 6 — INVESTERING -->
+  <section class="slide" data-slide="6">
+    <div class="slide-inner">
+      <div class="eyebrow">Investering</div>
+      <h2>Per uur opgebouwd</h2>
+      <div class="hours-block">
+        <div class="label">Per afdeling</div>
+        <div class="hours-row">
+          <span class="item">Voorbereiding &amp; research</span>
+          <span class="value">3 uur</span>
+        </div>
+        <div class="hours-row">
+          <span class="item">Dag op locatie — meekijken &amp; coachen</span>
+          <span class="value">6 uur</span>
+        </div>
+        <div class="hours-row">
+          <span class="item">Recap-document &amp; mini-playbook</span>
+          <span class="value">3 uur</span>
+        </div>
+        <div class="hours-row">
+          <span class="item">Follow-up vragen na de dag</span>
+          <span class="value">1 uur</span>
+        </div>
+        <div class="hours-row subtotal">
+          <span class="item">Per afdeling</span>
+          <span class="value">13 uur</span>
+        </div>
+      </div>
+      <div class="formula-block">
+        <div class="formula-line">
+          <span class="calc">13 uur &nbsp;×&nbsp; €120/uur &nbsp;×&nbsp; 2 afdelingen</span>
+          <span class="amount">€3.120</span>
+        </div>
+        <div class="formula-total">
+          <span class="label-text">Totaal investering</span>
+          <span class="amount">€3.120<small>ex btw</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 — VERVOLGSTAPPEN -->
+  <section class="slide" data-slide="7">
     <div class="slide-inner">
       <div class="eyebrow">Vervolgstappen</div>
-      <h2>Nog te bespreken.</h2>
+      <h2>Nog te bespreken</h2>
       <div class="divider"></div>
       <ul class="bullets bullets-compact">
         <li>Max benaderen voor het content-/marketinggedeelte</li>
-        <li>Voorstel voor Joris afronden</li>
         <li>Dagindeling concreet uitwerken</li>
         <li>Mogelijke automatiseringen per team verzamelen</li>
-        <li>Prijs bepalen</li>
         <li>Eventueel extra input ophalen bij Joris over pijnpunten en prioriteiten</li>
         <li>Datum, locatie en deelnemers afstemmen</li>
       </ul>
     </div>
   </section>
 
-  <!-- SLIDE 9 — TOT SLOT -->
-  <section class="slide slide-title slide-closing" data-slide="9">
+  <!-- SLIDE 8 — TOT SLOT -->
+  <section class="slide slide-title slide-closing" data-slide="8">
     <div class="slide-inner">
       <div class="ornament">— TOT SLOT —</div>
       <h1>Eén dag op locatie, direct toepasbaar</h1>
@@ -539,7 +650,7 @@
     <span class="arrow">←</span><span>Vorige</span>
   </button>
   <div class="counter">
-    <span id="current">01</span><span class="total"> / 09</span>
+    <span id="current">01</span><span class="total"> / 08</span>
   </div>
   <button class="nav-btn" id="next" aria-label="Volgende slide">
     <span>Volgende</span><span class="arrow">→</span>
